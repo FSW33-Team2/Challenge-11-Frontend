@@ -2,6 +2,10 @@
 import React from 'react'
 import { Carousel } from '@material-tailwind/react'
 
+import "video-react/dist/video-react.css"; // import css
+import {Player, BigPlayButton} from 'video-react'
+
+
 export default function CarouselCustomNavigation() {
   return (
     <Carousel
@@ -20,29 +24,41 @@ export default function CarouselCustomNavigation() {
         </div>
       )}
     >
-      <a href="/gamelist">
-        <img
-          src="/GameListPageImage/traditional.jpg"
-          alt="card-image"
-          className="h-full w-full object-cover"
-        />
-      </a>
+      
+        <Player
+            playsInline
+            poster="/GameListPageImage/traditional.jpg"
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+        > 
+        <BigPlayButton position="center"></BigPlayButton>  
 
-      <a href="/gamelist">
-        <img
-          src="/GameListPageImage/pubg.jpg"
-          alt="image 2"
-          className="h-full w-full object-cover"
-        />
-      </a>
+        </Player>
+     
+     
 
-      <a href="/gamelist">
-        <img
-          src="/GameListPageImage/free-fire.jpg"
-          alt="image 3"
-          className="h-full w-full object-cover"
-        />
-      </a>
+    
+      <Player
+            playsInline
+            poster="/GameListPageImage/pubg.jpg"
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+        > 
+        <BigPlayButton position="center"></BigPlayButton>  
+
+        </Player>
+    
+     
+
+     
+      <Player
+            playsInline
+            poster="/GameListPageImage/free-fire.jpg"
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+        > 
+        <BigPlayButton position="center"></BigPlayButton>  
+
+        </Player>
+  
+    
     </Carousel>
   )
 }
