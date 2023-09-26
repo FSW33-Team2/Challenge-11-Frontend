@@ -1,4 +1,6 @@
 'use client'
+require('dotenv').config();
+
 import {
   Card,
   CardHeader,
@@ -12,12 +14,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { insertHistory } from '@/redux/features/PlayedGames'
+import cloudinary from 'cloudinary-core'
 
 export function GameListPage() {
   const dispatch = useDispatch()
   const { data, loading } = useSelector((state) => state.allgames)
   const historyData = useSelector((state) => state.gamehistory.data)
   const [history, setHistory] = useState(historyData)
+  const cl = new cloudinary.Cloudinary({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
 
   const hasHistory = () => {
     if (history.length !== 0) {
@@ -52,11 +60,11 @@ export function GameListPage() {
             <Card key={data.id} className="mt-6 w-full">
               <CardHeader color="blue-gray" className="relative h-56">
                 <Link href={`/gamedetail/${data.id}`}>
-                  <img
-                    src="/GameListPageImage/traditional.jpg"
-                    alt="card-image"
-                    className="w-full h-full object-cover"
-                  />
+                <img
+                src="/GameListPageImage/free-fire.jpg"
+                alt="card-image"
+                className="w-full h-full object-cover"
+              />
                 </Link>
               </CardHeader>
               <CardBody>
@@ -205,10 +213,23 @@ export function GameListPage() {
             </Link>
           </CardFooter>
         </Card>
-
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <Link href={`/gamedetail/dummy`}>
+            <video
+                  controls
+                  className="w-full h-full object-cover"
+                    >
+                  <source
+                  src={cl.url(`video/upload/v${data.version}/${data.public_id}.webm`)}
+                  type="video/webm"
+                    />
+                  <source
+                  src={cl.url(`video/upload/v${data.version}/${data.public_id}.mp4`)}
+                  type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
               <img
                 src="/GameListPageImage/free-fire.jpg"
                 alt="card-image"
