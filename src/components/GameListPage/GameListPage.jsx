@@ -358,7 +358,7 @@ export function GameListPage() {
           ></video>
         ) : (
           <img
-            src="/GameListPageImage/metal-slug.jpg"
+            src="/GameListPageImage/free-fire.jpg"
             alt="card-image"
             className="w-full h-full object-cover"
           />
