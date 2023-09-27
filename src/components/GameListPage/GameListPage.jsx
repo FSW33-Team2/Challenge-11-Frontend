@@ -1,6 +1,4 @@
 'use client'
-require('dotenv').config();
-
 import {
   Card,
   CardHeader,
@@ -11,21 +9,18 @@ import {
 } from '@material-tailwind/react'
 import { fetchAllGames } from '@/redux/features/GamesByIdSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import { insertHistory } from '@/redux/features/PlayedGames'
-import cloudinary from 'cloudinary-core'
 
 export function GameListPage() {
   const dispatch = useDispatch()
   const { data, loading } = useSelector((state) => state.allgames)
   const historyData = useSelector((state) => state.gamehistory.data)
   const [history, setHistory] = useState(historyData)
-  const cl = new cloudinary.Cloudinary({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+  const [focus, setFocus] = useState(false);
+  const ref = useRef(null);
+  const [cardFocus, setCardFocus] = useState({});
 
   const hasHistory = () => {
     if (history.length !== 0) {
@@ -37,6 +32,26 @@ export function GameListPage() {
     }
   }
 
+  const loop = () => {
+    ref.current.play();
+  };
+
+  const pauseLoop = () => {
+    if (ref.current) {
+      ref.current.pause();
+      ref.current.currentTime = 0;
+    }
+  };
+
+  const onEndedLoop = () => {
+    if (focus) loop(); // when ended check if its focused then loop
+  };
+
+  useEffect(() => {
+    if (focus) loop(); // when focused then loop
+    if (!focus) pauseLoop(); // when not focused then pause loop
+  }, [focus]);
+  
   useEffect(() => {
     dispatch(fetchAllGames())
     hasHistory()
@@ -46,6 +61,7 @@ export function GameListPage() {
     setHistory([...history, gameData])
     dispatch(insertHistory({ data: gameData }))
   }
+
 
   return (
     <div className="w-full py-5">
@@ -60,11 +76,11 @@ export function GameListPage() {
             <Card key={data.id} className="mt-6 w-full">
               <CardHeader color="blue-gray" className="relative h-56">
                 <Link href={`/gamedetail/${data.id}`}>
-                <img
-                src="/GameListPageImage/free-fire.jpg"
-                alt="card-image"
-                className="w-full h-full object-cover"
-              />
+                  <img
+                    src="/GameListPageImage/traditional.jpg"
+                    alt="card-image"
+                    className="w-full h-full object-cover"
+                  />
                 </Link>
               </CardHeader>
               <CardBody>
@@ -98,11 +114,35 @@ export function GameListPage() {
               <Card key={data.id} className="mt-6 w-full">
                 <CardHeader color="blue-gray" className="relative h-56">
                   <Link href={`/gamedetail/${data.id}`}>
-                    <img
-                      src="/GameListPageImage/traditional.jpg"
-                      alt="card-image"
-                      className="w-full h-full object-cover"
-                    />
+                  <div
+      className="w-full h-full relative overflow-hidden rounded-lg"
+    >
+      <div
+        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
+        onMouseOver={() => setFocus(true)}
+        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
+      >
+      <div className="box relative">
+        {focus ? (
+          <video
+            id="video"
+            ref={ref}
+            autoPlay
+            muted={true}
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            onEnded={onEndedLoop}
+            className="w-full h-auto object-cover"
+          ></video>
+        ) : (
+          <img
+            src="/GameListPageImage/metal-slug.jpg"
+            alt="card-image"
+            className="w-full h-full object-cover"
+          />
+        )}
+        </div>
+      </div>
+    </div>
                   </Link>
                 </CardHeader>
                 <CardBody>
@@ -136,14 +176,42 @@ export function GameListPage() {
         <Typography variant="h2">Coming Soon Games</Typography>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
-        <Card className="mt-6 w-full">
+        <Card 
+        key={data.id}
+        className="mt-6 w-full"
+        onMouseEnter={() => setCardFocus({ ...cardFocus, [data.id]: true })}
+        onMouseLeave={() => setCardFocus({ ...cardFocus, [data.id]: false })}>
           <CardHeader color="blue-gray" className="relative h-56">
             <Link href={`/gamedetail/dummy`}>
-              <img
-                src="/GameListPageImage/rockpaperstrategy.jpg"
-                alt="card-image"
-                className="w-full h-full object-cover"
-              />
+            <div
+      className="w-full h-full relative overflow-hidden rounded-lg"
+    >
+      <div
+        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
+        onMouseOver={() => setFocus(true)}
+        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
+      >
+      <div className="box relative">
+        {focus ? (
+          <video
+            id="video1"
+            ref={ref}
+            autoPlay
+            muted={true}
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            onEnded={onEndedLoop}
+            className="w-full h-auto object-cover"
+          ></video>
+        ) : (
+          <img
+            src="/GameListPageImage/metal-slug.jpg"
+            alt="card-image"
+            className="w-full h-full object-cover"
+          />
+        )}
+        </div>
+      </div>
+    </div>
             </Link>
           </CardHeader>
           <CardBody>
@@ -162,11 +230,35 @@ export function GameListPage() {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <Link href={`/gamedetail/dummy`}>
-              <img
-                src="/GameListPageImage/metal-slug.jpg"
-                alt="card-image"
-                className="w-full h-full object-cover"
-              />
+            <div
+      className="w-full h-full relative overflow-hidden rounded-lg"
+    >
+      <div
+        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
+        onMouseOver={() => setFocus(true)}
+        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
+      >
+      <div className="box relative">
+        {focus ? (
+          <video
+            id="video2"
+            ref={ref}
+            autoPlay
+            muted={true}
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            onEnded={onEndedLoop}
+            className="w-full h-auto object-cover"
+          ></video>
+        ) : (
+          <img
+            src="/GameListPageImage/metal-slug.jpg"
+            alt="card-image"
+            className="w-full h-full object-cover"
+          />
+        )}
+        </div>
+      </div>
+    </div>
             </Link>
           </CardHeader>
           <CardBody>
@@ -190,11 +282,35 @@ export function GameListPage() {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <Link href={`/gamedetail/dummy`}>
-              <img
-                src="/GameListPageImage/pubg.jpg"
-                alt="card-image"
-                className="w-full h-full object-cover"
-              />
+            <div
+      className="w-full h-full relative overflow-hidden rounded-lg"
+    >
+      <div
+        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
+        onMouseOver={() => setFocus(true)}
+        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
+      >
+      <div className="box relative">
+        {focus ? (
+          <video
+            id="video3"
+            ref={ref}
+            autoPlay
+            muted={true}
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            onEnded={onEndedLoop}
+            className="w-full h-auto object-cover"
+          ></video>
+        ) : (
+          <img
+            src="/GameListPageImage/metal-slug.jpg"
+            alt="card-image"
+            className="w-full h-full object-cover"
+          />
+        )}
+        </div>
+      </div>
+    </div>
             </Link>
           </CardHeader>
           <CardBody>
@@ -213,28 +329,43 @@ export function GameListPage() {
             </Link>
           </CardFooter>
         </Card>
-        <Card className="mt-6 w-full">
+
+        <Card 
+        className="mt-6 w-full"
+        key={data.id}
+        onMouseEnter={() => setCardFocus({ ...cardFocus, [data.id]: true })}
+        onMouseLeave={() => setCardFocus({ ...cardFocus, [data.id]: false })}>
           <CardHeader color="blue-gray" className="relative h-56">
             <Link href={`/gamedetail/dummy`}>
-            <video
-                  controls
-                  className="w-full h-full object-cover"
-                    >
-                  <source
-                  src={cl.url(`video/upload/v${data.version}/${data.public_id}.webm`)}
-                  type="video/webm"
-                    />
-                  <source
-                  src={cl.url(`video/upload/v${data.version}/${data.public_id}.mp4`)}
-                  type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-              <img
-                src="/GameListPageImage/free-fire.jpg"
-                alt="card-image"
-                className="w-full h-full object-cover"
-              />
+            <div
+      className="w-full h-full relative overflow-hidden rounded-lg"
+    >
+      <div
+        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
+        onMouseOver={() => setFocus(true)}
+        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
+      >
+      <div className="box relative">
+        {focus ? (
+          <video
+            id="video4"
+            ref={ref}
+            autoPlay
+            muted={true}
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            onEnded={onEndedLoop}
+            className="w-full h-auto object-cover"
+          ></video>
+        ) : (
+          <img
+            src="/GameListPageImage/metal-slug.jpg"
+            alt="card-image"
+            className="w-full h-full object-cover"
+          />
+        )}
+        </div>
+      </div>
+    </div>
             </Link>
           </CardHeader>
           <CardBody>
