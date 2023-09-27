@@ -15,12 +15,14 @@ import React, { useState, useEffect } from 'react'
 import axios from '../lib/axios'
 import jwtDecode from 'jwt-decode'
 
+
 export function ProfileCard() {
   const [userId, setUserId] = useState('')
   const [totalscore, setTotalScore] = useState(null)
   const [scoreHistory, setScoreHistory] = useState([])
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
+  const [picture, setPicture] = useState ('')
   const [open, setOpen] = React.useState(false)
 
   const handleOpen = async () => {
@@ -35,12 +37,35 @@ export function ProfileCard() {
     setUsername(event.target.value)
   }
 
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+  
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+  
+    try {
+      const response = await fetch('/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        alert('Gambar berhasil diunggah.');
+      } else {
+        alert('Terjadi kesalahan saat mengunggah gambar. Silakan coba lagi nanti.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const handleClose = async () => {
     const response = await axios.get('/api/auth/token')
     const decoded = jwtDecode(response.data.accessToken)
     // Kembalikan data ke data awal
     setUsername(decoded.username)
     setEmail(decoded.email)
+    setPicture (decoded.picture)
 
     // Tutup modal setelah mengonfirmasi pembatalan
     handleOpen(false)
@@ -70,6 +95,7 @@ export function ProfileCard() {
       // Kembalikan data ke data awal
       setUsername(decoded.username)
       setEmail(decoded.email)
+      setPicture (decoded.picture)
 
       // Tutup modal setelah mengonfirmasi pembatalan
       handleOpen(false)
@@ -113,6 +139,7 @@ export function ProfileCard() {
   useEffect(() => {
     refreshToken()
   }, [])
+  
 
   const refreshToken = async () => {
     try {
@@ -121,6 +148,7 @@ export function ProfileCard() {
       setUserId(decoded.userId)
       setUsername(decoded.username)
       setEmail(decoded.email)
+      setPicture (decoded.picture)
     } catch (error) {
       console.log(error)
     }
@@ -215,6 +243,24 @@ export function ProfileCard() {
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="profilePicture"
+              className="block text-gray-500 font-bold mb-1"
+            >
+              Change Profile Picture:
+            </label>
+            <input
+              type="file"
+              id="profilePicture"
+              name="profilePicture"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+            />
+            
+            
+          </div>
         </DialogBody>
         <DialogFooter>
           <Button
@@ -252,7 +298,7 @@ export function ProfileCard() {
               className="h-40 w-40 rounded-full overflow-hidden mx-auto"
             >
               <img
-                src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                src={picture}
                 alt="profile-picture"
                 className="h-full w-full object-cover"
               />
