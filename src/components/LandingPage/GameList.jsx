@@ -10,30 +10,28 @@ import {
 import React, { useEffect, useState, useRef } from 'react'
 
 export function LandingPageCard() {
+  const [focus, setFocus] = useState(false)
+  const ref = useRef(null)
 
-const [focus, setFocus] = useState(false);
-const ref = useRef(null);
-const [cardFocus, setCardFocus] = useState({});
-
-const loop = () => {
-  ref.current.play();
-};
-
-const pauseLoop = () => {
-  if (ref.current) {
-    ref.current.pause();
-    ref.current.currentTime = 0;
+  const loop = () => {
+    ref.current.play()
   }
-};
 
-const onEndedLoop = () => {
-  if (focus) loop(); // when ended check if its focused then loop
-};
+  const pauseLoop = () => {
+    if (ref.current) {
+      ref.current.pause()
+      ref.current.currentTime = 0
+    }
+  }
 
-useEffect(() => {
-  if (focus) loop(); // when focused then loop
-  if (!focus) pauseLoop(); // when not focused then pause loop
-}, [focus]);
+  const onEndedLoop = () => {
+    if (focus) loop() // when ended check if its focused then loop
+  }
+
+  useEffect(() => {
+    if (focus) loop() // when focused then loop
+    if (!focus) pauseLoop() // when not focused then pause loop
+  }, [focus])
 
   return (
     <div className="w-full py-5">
@@ -44,35 +42,38 @@ useEffect(() => {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <a href="/gamelist">
-            <div
-      className="w-full h-full relative overflow-hidden rounded-lg"
-    >
-      <div
-        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
-        onMouseOver={() => setFocus(true)}
-        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
-      >
-      <div className="box relative">
-        {focus ? (
-          <video
-            id="video"
-            ref={ref}
-            autoPlay
-            muted={true}
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-            onEnded={onEndedLoop}
-            className="w-full h-auto object-cover"
-          ></video>
-        ) : (
-          <img
-            src="/GameListPageImage/metal-slug.jpg"
-            alt="card-image"
-            className="w-full h-full object-cover"
-          />
-        )}
-        </div>
-      </div>
-    </div>
+              <div className="w-full h-full relative overflow-hidden rounded-lg">
+                <div
+                  className={`container mx-auto max-w-md ${
+                    focus ? 'aspect-w-16 aspect-h-9' : 'w-full h-auto'
+                  }`}
+                  onMouseOver={() => setFocus(true)}
+                  onMouseOut={() => {
+                    setFocus(false)
+                    pauseLoop()
+                  }} // Pause the video on mouse out
+                >
+                  <div className="box relative">
+                    {focus ? (
+                      <video
+                        id="video"
+                        ref={ref}
+                        autoPlay
+                        muted={true}
+                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        onEnded={onEndedLoop}
+                        className="w-full h-auto object-cover"
+                      ></video>
+                    ) : (
+                      <img
+                        src="/GameListPageImage/metal-slug.jpg"
+                        alt="card-image"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
             </a>
           </CardHeader>
           <CardBody>
@@ -94,35 +95,38 @@ useEffect(() => {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <a href="/gamelist">
-            <div
-      className="w-full h-full relative overflow-hidden rounded-lg"
-    >
-      <div
-        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
-        onMouseOver={() => setFocus(true)}
-        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
-      >
-      <div className="box relative">
-        {focus ? (
-          <video
-            id="video"
-            ref={ref}
-            autoPlay
-            muted={true}
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-            onEnded={onEndedLoop}
-            className="w-full h-auto object-cover"
-          ></video>
-        ) : (
-          <img
-            src="/GameListPageImage/metal-slug.jpg"
-            alt="card-image"
-            className="w-full h-full object-cover"
-          />
-        )}
-        </div>
-      </div>
-    </div>
+              <div className="w-full h-full relative overflow-hidden rounded-lg">
+                <div
+                  className={`container mx-auto max-w-md ${
+                    focus ? 'aspect-w-16 aspect-h-9' : 'w-full h-auto'
+                  }`}
+                  onMouseOver={() => setFocus(true)}
+                  onMouseOut={() => {
+                    setFocus(false)
+                    pauseLoop()
+                  }} // Pause the video on mouse out
+                >
+                  <div className="box relative">
+                    {focus ? (
+                      <video
+                        id="video"
+                        ref={ref}
+                        autoPlay
+                        muted={true}
+                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        onEnded={onEndedLoop}
+                        className="w-full h-auto object-cover"
+                      ></video>
+                    ) : (
+                      <img
+                        src="/GameListPageImage/metal-slug.jpg"
+                        alt="card-image"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
             </a>
           </CardHeader>
           <CardBody>
@@ -145,35 +149,38 @@ useEffect(() => {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <a href="/gamelist">
-            <div
-      className="w-full h-full relative overflow-hidden rounded-lg"
-    >
-      <div
-        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
-        onMouseOver={() => setFocus(true)}
-        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
-      >
-      <div className="box relative">
-        {focus ? (
-          <video
-            id="video"
-            ref={ref}
-            autoPlay
-            muted={true}
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-            onEnded={onEndedLoop}
-            className="w-full h-auto object-cover"
-          ></video>
-        ) : (
-          <img
-            src="/GameListPageImage/metal-slug.jpg"
-            alt="card-image"
-            className="w-full h-full object-cover"
-          />
-        )}
-        </div>
-      </div>
-    </div>
+              <div className="w-full h-full relative overflow-hidden rounded-lg">
+                <div
+                  className={`container mx-auto max-w-md ${
+                    focus ? 'aspect-w-16 aspect-h-9' : 'w-full h-auto'
+                  }`}
+                  onMouseOver={() => setFocus(true)}
+                  onMouseOut={() => {
+                    setFocus(false)
+                    pauseLoop()
+                  }} // Pause the video on mouse out
+                >
+                  <div className="box relative">
+                    {focus ? (
+                      <video
+                        id="video"
+                        ref={ref}
+                        autoPlay
+                        muted={true}
+                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        onEnded={onEndedLoop}
+                        className="w-full h-auto object-cover"
+                      ></video>
+                    ) : (
+                      <img
+                        src="/GameListPageImage/metal-slug.jpg"
+                        alt="card-image"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
             </a>
           </CardHeader>
           <CardBody>
@@ -196,35 +203,38 @@ useEffect(() => {
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
             <a href="/gamelist">
-            <div
-      className="w-full h-full relative overflow-hidden rounded-lg"
-    >
-      <div
-        className={`container mx-auto max-w-md ${focus ? "aspect-w-16 aspect-h-9" : "w-full h-auto"}`}
-        onMouseOver={() => setFocus(true)}
-        onMouseOut={() => { setFocus(false); pauseLoop(); }} // Pause the video on mouse out
-      >
-      <div className="box relative">
-        {focus ? (
-          <video
-            id="video"
-            ref={ref}
-            autoPlay
-            muted={true}
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-            onEnded={onEndedLoop}
-            className="w-full h-auto object-cover"
-          ></video>
-        ) : (
-          <img
-            src="/GameListPageImage/metal-slug.jpg"
-            alt="card-image"
-            className="w-full h-full object-cover"
-          />
-        )}
-        </div>
-      </div>
-    </div>
+              <div className="w-full h-full relative overflow-hidden rounded-lg">
+                <div
+                  className={`container mx-auto max-w-md ${
+                    focus ? 'aspect-w-16 aspect-h-9' : 'w-full h-auto'
+                  }`}
+                  onMouseOver={() => setFocus(true)}
+                  onMouseOut={() => {
+                    setFocus(false)
+                    pauseLoop()
+                  }} // Pause the video on mouse out
+                >
+                  <div className="box relative">
+                    {focus ? (
+                      <video
+                        id="video"
+                        ref={ref}
+                        autoPlay
+                        muted={true}
+                        src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                        onEnded={onEndedLoop}
+                        className="w-full h-auto object-cover"
+                      ></video>
+                    ) : (
+                      <img
+                        src="/GameListPageImage/metal-slug.jpg"
+                        alt="card-image"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
             </a>
           </CardHeader>
           <CardBody>
