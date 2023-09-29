@@ -35,13 +35,10 @@ export default function LoginFormPage() {
 
     try {
       // eslint-disable-next-line no-unused-vars
-      const postLogin = await axios.post(
-        'http://localhost:8000/api/auth/login',
-        {
-          email: email,
-          password: password,
-        }
-      )
+      const postLogin = await axios.post('/api/auth/login', {
+        email: email,
+        password: password,
+      })
       await dispatch(clickButton({ btnState: 'loading' }))
       setTimeout(() => {
         dispatch(clickButton({ btnState: 'success' }))

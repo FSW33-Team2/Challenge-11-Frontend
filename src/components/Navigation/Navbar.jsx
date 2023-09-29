@@ -13,7 +13,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserToken } from '@/redux/features/Auth/UserTokenSlice'
 import { LoginAction, LogoutAction } from '@/redux/features/Auth/AuthReducer'
-import axios from 'axios'
+import axios from '../lib/axios'
 import { useRouter } from 'next/navigation'
 
 export default function NavbarSimple() {
@@ -29,7 +29,7 @@ export default function NavbarSimple() {
 
   const Logout = async () => {
     try {
-      await axios.delete('http://localhost:8000/api/auth/logout')
+      await axios.delete('/api/auth/logout')
       dispatch(LogoutAction())
       router.push('/')
     } catch (error) {
