@@ -40,7 +40,6 @@ export default function FooterWithSocialLinks() {
                 {items.map((link) => (
                   <li key={link}>
                     <Typography
-                      as="a"
                       href="#"
                       color="gray"
                       className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
@@ -58,13 +57,10 @@ export default function FooterWithSocialLinks() {
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
-            &copy; {currentYear}{' '}
-            <Typography href="https://material-tailwind.com/">LOGO</Typography>.
-            FSW 33 KELOMPOK 2 JAYA!!
+            &copy; {currentYear} FSW 33 KELOMPOK 2 JAYA!!
           </Typography>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
             <Typography
-              as="a"
               href="#"
               className="opacity-80 transition-opacity hover:opacity-100"
             >
@@ -82,7 +78,6 @@ export default function FooterWithSocialLinks() {
               </svg>
             </Typography>
             <Typography
-              as="a"
               href="#"
               className="opacity-80 transition-opacity hover:opacity-100"
             >
@@ -100,7 +95,6 @@ export default function FooterWithSocialLinks() {
               </svg>
             </Typography>
             <Typography
-              as="a"
               href="#"
               className="opacity-80 transition-opacity hover:opacity-100"
             >
@@ -114,7 +108,6 @@ export default function FooterWithSocialLinks() {
               </svg>
             </Typography>
             <Typography
-              as="a"
               href="#"
               className="opacity-80 transition-opacity hover:opacity-100"
             >
@@ -132,7 +125,6 @@ export default function FooterWithSocialLinks() {
               </svg>
             </Typography>
             <Typography
-              as="a"
               href="#"
               className="opacity-80 transition-opacity hover:opacity-100"
             >

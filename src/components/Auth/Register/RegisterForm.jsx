@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import axios from 'axios'
+import Link from 'next/link'
 
 export default function RegisterFormPage() {
   const router = useRouter()
@@ -147,12 +148,12 @@ export default function RegisterFormPage() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Member ?{' '}
-          <a
+          <Link
             href="/auth/login"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Login here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

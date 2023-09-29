@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
 } from '@material-tailwind/react'
+import Link from 'next/link'
 import React, { useEffect, useState, useRef } from 'react'
 
 export function LandingPageCard() {
@@ -41,7 +42,7 @@ export function LandingPageCard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <div className="w-full h-full relative overflow-hidden rounded-lg">
                 <div
                   className={`container mx-auto max-w-md ${
@@ -74,7 +75,7 @@ export function LandingPageCard() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </CardHeader>
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -86,15 +87,15 @@ export function LandingPageCard() {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <Button>Play Game</Button>
-            </a>
+            </Link>
           </CardFooter>
         </Card>
 
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <div className="w-full h-full relative overflow-hidden rounded-lg">
                 <div
                   className={`container mx-auto max-w-md ${
@@ -127,7 +128,7 @@ export function LandingPageCard() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </CardHeader>
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -140,15 +141,15 @@ export function LandingPageCard() {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <Button>Play Game</Button>
-            </a>
+            </Link>
           </CardFooter>
         </Card>
 
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <div className="w-full h-full relative overflow-hidden rounded-lg">
                 <div
                   className={`container mx-auto max-w-md ${
@@ -181,7 +182,7 @@ export function LandingPageCard() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </CardHeader>
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -194,15 +195,15 @@ export function LandingPageCard() {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <Button>Play Game</Button>
-            </a>
+            </Link>
           </CardFooter>
         </Card>
 
         <Card className="mt-6 w-full">
           <CardHeader color="blue-gray" className="relative h-56">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <div className="w-full h-full relative overflow-hidden rounded-lg">
                 <div
                   className={`container mx-auto max-w-md ${
@@ -235,7 +236,7 @@ export function LandingPageCard() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </CardHeader>
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -248,9 +249,9 @@ export function LandingPageCard() {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <a href="/gamelist">
+            <Link href="/gamelist">
               <Button>Play Game</Button>
-            </a>
+            </Link>
           </CardFooter>
         </Card>
       </div>

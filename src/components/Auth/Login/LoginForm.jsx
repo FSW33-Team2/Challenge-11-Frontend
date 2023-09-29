@@ -2,11 +2,10 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import { Spinner } from '@material-tailwind/react'
+import axios from '../../lib/axios'
+import { Spinner, Typography } from '@material-tailwind/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clickButton } from '@/redux/features/DynamicButton'
-axios.defaults.withCredentials = true
 
 export default function LoginFormPage() {
   const dispatch = useDispatch()
@@ -116,12 +115,12 @@ export default function LoginFormPage() {
               />
             </div>
             <div className="text-sm">
-              <a
+              <Typography
                 href="#"
                 className="font-semibold text-indigo-600 hover:text-indigo-500"
               >
                 Forgot password?
-              </a>
+              </Typography>
             </div>
           </div>
           {btnState === 'loading' ? (
