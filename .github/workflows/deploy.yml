@@ -28,5 +28,4 @@ jobs:
           && source ~/.nvm/nvm.sh \
           && npm install --only=prod \
           && npm run build \
-          && npm run start \
           && pm2 restart CH11Frontend
