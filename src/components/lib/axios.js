@@ -1,9 +1,9 @@
 import Axios from 'axios'
-require('dotenv').config()
+const axiosUrl = process.env.axiosBaseurl
 
 Axios.defaults.withCredentials = true
 const axios = Axios.create({
-  baseURL: process.env.AXIOS_BASEURL,
+  baseURL: axiosUrl,
 })
 
 export default axios

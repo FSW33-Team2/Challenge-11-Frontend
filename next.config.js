@@ -5,6 +5,9 @@ const nextConfig = {
     domains: ['tailwindui.com'],
     formats: ['image/webp'],
   },
+  env: {
+    axiosBaseurl: process.env.AXIOS_BASEURL,
+  },
 }
 
 module.exports = nextConfig
